@@ -1,10 +1,22 @@
 import Category from "./category"
 
 describe('Category constructor', () => {
-  const categoryName = 'Drama'
+  const created_at = new Date();
+  const categoryFake: Category = new Category({ 
+    name: 'Drama',
+    description: 'some description',
+    is_active: true,
+    created_at
+  })
   
   it('Should be able to create a Category with correctly name', () => {
-    const category = new Category(categoryName)
-    expect(category.name).toBe(categoryName)
+    const expected = {
+      name: 'Drama',
+      description: 'some description',
+      is_active: true,
+      created_at
+    }
+
+    expect(categoryFake.props).toStrictEqual(expected)
   })
 })
