@@ -1,7 +1,27 @@
-export default class Category {
+export type CategoryProps = {
   name: string
+  description?: string
+  is_active?: boolean
+  created_at?: Date
+}
 
-  constructor(name: string) {
-    this.name = name
+export default class Category {
+  constructor(public readonly props: CategoryProps) {}
+
+  get name() {
+    return this.props.name
   }
+
+  get description() {
+    return this.props.description
+  }
+
+  get is_active() {
+    return this.props.is_active
+  }
+  
+  get created_at() {
+    return this.props.created_at
+  }
+
 }
