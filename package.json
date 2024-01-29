@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "ts-node": "ts-node",
-    "clean:tsc": "rm tsconfig.tsbuildinfo"
+    "clean:tsc": "rm tsconfig.tsbuildinfo",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@swc/core": "^1.2.143",
+    "@swc/jest": "^0.2.17",
+    "@types/jest": "^27.4.0",
     "@types/node": "^14.14.31",
+    "jest": "^27.4.0",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }
