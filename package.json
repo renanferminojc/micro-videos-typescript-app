@@ -4,7 +4,8 @@
   "description": "Admin do catalogo de videos",
   "main": "index.js",
   "scripts": {
-    "ts-node": "ts-node"
+    "ts-node": "ts-node",
+    "clean:tsc": "rm tsconfig.tsbuildinfo"
   },
   "repository": {
     "type": "git",
