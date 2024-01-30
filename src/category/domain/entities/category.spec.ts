@@ -1,22 +1,68 @@
 import Category from "./category"
 
-describe('Category constructor', () => {
-  const created_at = new Date();
-  const categoryFake: Category = new Category({ 
-    name: 'Drama',
-    description: 'some description',
-    is_active: true,
-    created_at
-  })
-  
-  it('Should be able to create a Category with correctly name', () => {
-    const expected = {
-      name: 'Drama',
-      description: 'some description',
-      is_active: true,
-      created_at
-    }
+const defaultDate = new Date(2024, 1, 30, 0)
+jest.useFakeTimers('modern').setSystemTime(defaultDate);
 
-    expect(categoryFake.props).toStrictEqual(expected)
+describe('Category constructor', () => {
+  const defaultCategoryName = 'Drama'
+  const defaultCategoryDescription = 'some description'
+
+  it('Should be able to create a Category only with name', () => {
+    const category: Category = new Category({ 
+      name: defaultCategoryName,
+    })
+
+    expect(category.props).toStrictEqual({
+      name: defaultCategoryName,
+      description: null,
+      is_active: true,
+      created_at: defaultDate
+    })
+    expect(category.props.created_at).toBeInstanceOf(Date)
+  })
+
+  it('Should be able to create a Category with description', () => {
+    const category: Category = new Category({ 
+      name: defaultCategoryName,
+      description: defaultCategoryDescription
+    })
+
+    expect(category.props).toStrictEqual({
+      name: defaultCategoryName,
+      description: defaultCategoryDescription,
+      is_active: true,
+      created_at: defaultDate
+    })
+    expect(category.props.created_at).toBeInstanceOf(Date)
+  })
+
+  it('Should be able to create a Category with is_active false', () => {
+    const category: Category = new Category({ 
+      name: defaultCategoryName,
+      is_active: false
+    })
+
+    expect(category.props).toStrictEqual({
+      name: defaultCategoryName,
+      description: null,
+      is_active: false,
+      created_at: defaultDate
+    })
+    expect(category.props.created_at).toBeInstanceOf(Date)
+  })
+
+  it('Should be able to create a Category with is_active true', () => {
+    const category: Category = new Category({ 
+      name: defaultCategoryName,
+      is_active: true
+    })
+
+    expect(category.props).toStrictEqual({
+      name: defaultCategoryName,
+      description: null,
+      is_active: true,
+      created_at: defaultDate
+    })
+    expect(category.props.created_at).toBeInstanceOf(Date)
   })
 })

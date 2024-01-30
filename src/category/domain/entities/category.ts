@@ -29,7 +29,7 @@ export default class Category {
   }
 
   private set is_active (is_active: boolean) {
-    this.props.is_active = is_active || true
+    this.props.is_active = is_active ?? true
   }
 
   get created_at() {
