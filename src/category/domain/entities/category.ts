@@ -1,4 +1,5 @@
-import { v4 as uuidV4 } from 'uuid'
+import { UniqueEntityId } from "../../../shared/domain/unique-entity-id"
+
 
 export type CategoryProps = {
   name: string
@@ -9,10 +10,10 @@ export type CategoryProps = {
 }
 
 export default class Category {
-  public readonly id: string
+  public readonly id: UniqueEntityId
 
-  constructor(public readonly props: CategoryProps, id?: string) {
-    this.id = id || uuidV4()
+  constructor(public readonly props: CategoryProps, id?: UniqueEntityId) {
+    this.id = id || new UniqueEntityId()
     this.description = this.props.description
     this.is_active = this.props.is_active
     this.created_at = this.props.created_at
