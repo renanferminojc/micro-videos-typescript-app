@@ -1,6 +1,5 @@
-import Category from "./category"
-
-import { UniqueEntityId } from '../../../shared/domain/unique-entity-id'
+import Category, { CategoryProps } from "./category"
+import UniqueEntityId from '../../../shared/domain/value-objects/unique-entity-id'
 
 const defaultDate = new Date(2024, 1, 30, 0)
 jest.useFakeTimers('modern').setSystemTime(defaultDate);
@@ -68,24 +67,20 @@ describe('Category constructor', () => {
     expect(category.props.created_at).toBeInstanceOf(Date)
   })
 
-  it('Should validate uuid if was not provided', () => {
-    const category = new Category({ name: defaultCategoryName })
-    expect(category.id).not.toBeNull()
-  })
+  it('Should validate id field', () => {
+    type CategoryData = { props: CategoryProps; id?: UniqueEntityId }
+    const data: CategoryData[] = [
+      {props: { name: "Movie"}},
+      {props: { name: "Movie"}, id: null},
+      {props: { name: "Movie"}, id: undefined},
+      {props: { name: "Movie"}, id: new UniqueEntityId()},
+      {props: { name: "Movie"}},
+    ]
 
-  it('Should validate uuid if null is provided', () => {
-    const category = new Category({ name: defaultCategoryName, id: null })
-    expect(category.id).not.toBeNull()
-  })
-
-  it('Should validate uuid if undefined is provided', () => {
-    const category = new Category({ name: defaultCategoryName, id: null })
-    expect(category.id).not.toBeNull()
-  })
-
-  it('Should validate uuid if valid uuid is provided', () => {
-    const category = new Category({ name: defaultCategoryName, id: '21eb0c93-cc1e-499f-837c-d26212059cfc' })
-    expect(category.id).not.toBeNull()
-    expect(category.id).toBeInstanceOf(UniqueEntityId)
+    data.forEach(item => {
+      const category = new Category(item.props, item.id as any)
+      expect(category.id).not.toBeNull()
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId)
+    })
   })
 })
